@@ -1,0 +1,3 @@
+[submodule "Reference/cnLibrary"]
+	path = Reference/cnLibrary
+	url = git@github.com:Code009/cnLibrary.git

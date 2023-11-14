@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Project">
+      <UniqueIdentifier>{bf53d300-c7e7-4cf7-a513-8c5dfcd1bea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Project\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Project\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Code - Win">
+      <UniqueIdentifier>{913e36bd-5c19-444e-9ae6-d17e73a18eed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code">
+      <UniqueIdentifier>{5eba5107-2a6c-4988-a051-9c3aba74e757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code - Win\MillionItemDumpDsk">
+      <UniqueIdentifier>{6c0592a8-45c1-42f7-8ddc-681a3ddee867}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\MillionItemDumpDsk">
+      <UniqueIdentifier>{10e15cf7-e49e-4ecb-8a2f-31259af3dfbc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppHeader.h">
+      <Filter>Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code_VS_Win\MillionItemDumpDsk\AppModule.h">
+      <Filter>Code - Win\MillionItemDumpDsk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\MillionItemDumpDsk\App.h">
+      <Filter>Code\MillionItemDumpDsk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\MillionItemDumpDsk\D12Render.h">
+      <Filter>Code\MillionItemDumpDsk</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Project\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Code_VS_Win\MillionItemDumpDsk\AppModule.cpp">
+      <Filter>Code - Win\MillionItemDumpDsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Code\MillionItemDumpDsk\App.cpp">
+      <Filter>Code\MillionItemDumpDsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Code\MillionItemDumpDsk\D12Render.cpp">
+      <Filter>Code\MillionItemDumpDsk</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
