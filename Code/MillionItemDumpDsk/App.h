@@ -1,76 +1,11 @@
 #pragma once
 #include "AppHeader.h"
 
-#include "D12Render.h"
+#include "TestD12.h"
 
 namespace MillionItemDump{
 
 
-class cD12Device
-{
-public:
-	cD12Device();
-	~cD12Device();
-
-	operator ID3D12Device *();
-private:
-	COMPtr<ID3D12Device> fDevice;
-};
-
-
-
-
-class cTestRenderTargets
-{
-public:
-	cTestRenderTargets(ID3D12Device *Device);
-	~cTestRenderTargets();
-
-	void Setup(HANDLE RenderBufferHandle,int x,int y);
-
-	cD12RenderTarget GetRenderTarget(void);
-
-protected:
-
-	COMPtr<ID3D12Device> fDevice;
-
-	COMPtr<ID3D12Resource> fRenderTarget;
-	COMPtr<ID3D12DescriptorHeap> fRenderTargetRTVDesc;
-
-	int fRenderWidth;
-	int fRenderHeight;
-};
-
-
-class cTestRenderCommand
-{
-public:
-	cTestRenderCommand(ID3D12Device *Device);
-	~cTestRenderCommand();
-
-	void Build(const cD12RenderTarget &Target);
-
-	ID3D12CommandList* GetCommandList(void);
-
-protected:
-
-	COMPtr<ID3D12Device> fDevice;
-
-	COMPtr<ID3D12RootSignature> fRootSign;
-	COMPtr<ID3D12PipelineState> fPState;
-	COMPtr<ID3D12CommandAllocator> fCmdAllocator;
-	COMPtr<ID3D12GraphicsCommandList> fCmdList;
-
-    struct Vertex
-    {
-		float position[3];
-		float color[4];
-    };
-	COMPtr<ID3D12Resource> VertexBuffer;
-	D3D12_VERTEX_BUFFER_VIEW VBView;
-
-
-};
 class cTestD3DPainter : public iDXGIPainter
 {
 public:
@@ -95,10 +30,20 @@ protected:
 	COMPtr<ID3D12CommandQueue> fCommandQueue;
 	COMPtr<ID3D12Fence> fFence;
 
-	cTestRenderTargets fSharedRenderTarget;
+	cD12ResourceRenderTarget fSharedRenderTarget;
 	cTestRenderCommand fRenderCommand;
 
 };
+
+
+class cD3DModule
+{
+public:
+	cD12Device D3DDevice;
+};
+
+
+extern cD3DModule &gD3DModule;
 
 class cMainForm : public cnUI::Form
 {
@@ -119,8 +64,6 @@ class cApp
 public:
 	cApp();
 	~cApp();
-
-	cD12Device D3DDevice;
 
 	iPtr<iUIWindow> MainWindow;
 

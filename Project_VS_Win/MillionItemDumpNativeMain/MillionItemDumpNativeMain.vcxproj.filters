@@ -45,6 +45,9 @@
     <ClInclude Include="..\..\Code\MillionItemDumpDsk\D12Render.h">
       <Filter>Code\MillionItemDumpDsk</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Code\MillionItemDumpDsk\TestD12.h">
+      <Filter>Code\MillionItemDumpDsk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -57,6 +60,9 @@
       <Filter>Code\MillionItemDumpDsk</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Code\MillionItemDumpDsk\D12Render.cpp">
+      <Filter>Code\MillionItemDumpDsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Code\MillionItemDumpDsk\TestD12.cpp">
       <Filter>Code\MillionItemDumpDsk</Filter>
     </ClCompile>
   </ItemGroup>

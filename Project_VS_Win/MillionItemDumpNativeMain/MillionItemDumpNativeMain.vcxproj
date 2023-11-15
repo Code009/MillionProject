@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Code\MillionItemDumpDsk\App.h" />
     <ClInclude Include="..\..\Code\MillionItemDumpDsk\D12Render.h" />
+    <ClInclude Include="..\..\Code\MillionItemDumpDsk\TestD12.h" />
     <ClInclude Include="..\..\Code_VS_Win\MillionItemDumpDsk\AppModule.h" />
     <ClInclude Include="AppHeader.h" />
     <ClInclude Include="pch.h" />
@@ -174,6 +175,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Code\MillionItemDumpDsk\App.cpp" />
     <ClCompile Include="..\..\Code\MillionItemDumpDsk\D12Render.cpp" />
+    <ClCompile Include="..\..\Code\MillionItemDumpDsk\TestD12.cpp" />
     <ClCompile Include="..\..\Code_VS_Win\MillionItemDumpDsk\AppModule.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

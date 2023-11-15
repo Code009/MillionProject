@@ -3,7 +3,8 @@
 
 
 namespace MillionItemDump{
-
+using namespace cnLibrary;
+using namespace cnRTL;
 
 struct cD12RenderTarget
 {
@@ -71,5 +72,56 @@ protected:
 
 
 
+class cD12ResourceRenderTarget
+{
+public:
+	cD12ResourceRenderTarget(ID3D12Device *Device);
+	~cD12ResourceRenderTarget();
+
+	void SetupShared(HANDLE RenderBufferHandle,int x,int y);
+
+	cD12RenderTarget GetRenderTarget(void);
+
+protected:
+
+	COMPtr<ID3D12Device> fDevice;
+
+	COMPtr<ID3D12Resource> fRenderTarget;
+	COMPtr<ID3D12DescriptorHeap> fRenderTargetRTVDesc;
+
+	int fRenderWidth;
+	int fRenderHeight;
+};
+
+
+class cD12SwapChainRenderTargets
+{
+public:
+	cD12SwapChainRenderTargets(ID3D12Device *Device);
+	~cD12SwapChainRenderTargets();
+
+
+	void SetupHWND(IDXGIFactory2 *DXGIFactory,ID3D12CommandQueue *CommandQueue,HWND WindowHandle);
+	void UpdateViewport(int w,int h);
+	cD12RenderTarget GetRenderTarget(void);
+
+	void Present(void);
+
+
+protected:
+
+	COMPtr<ID3D12Device> fDevice;
+
+	COMPtr<IDXGISwapChain1> fSwapChain;
+	COMPtr<IDXGISwapChain3> fSwapChain3;
+	COMPtr<ID3D12DescriptorHeap> fRenderTargetRTVDesc;
+	uIntn fRTVDescSize;
+	COMPtr<ID3D12Resource> fRenderTarget[2];
+
+	int fRenderWidth;
+	int fRenderHeight;
+
+	ufInt8 fRenderTargetIndex=0;
+};
 
 }

@@ -26,7 +26,8 @@ struct cMillionItemDumpModue : cSysModule
 {
 	cMillionItemDumpModue();
 	~cMillionItemDumpModue();
-
+	
+	cD3DModule D3DModule;
 	cApp App;
 
 	void UIMain(void);

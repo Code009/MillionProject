@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Code">
+      <UniqueIdentifier>{6790f5f6-4171-4bfd-ba59-b49467482dbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\MillionItemDumpDsk">
+      <UniqueIdentifier>{4e4db8b3-c17a-4591-b11c-d1358fcc9bd7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppHeader.h">
@@ -27,6 +33,12 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Code\MillionItemDumpDsk\D12Render.h">
+      <Filter>Code\MillionItemDumpDsk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\MillionItemDumpDsk\TestD12.h">
+      <Filter>Code\MillionItemDumpDsk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3DNativeExample.cpp">
@@ -34,6 +46,12 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Code\MillionItemDumpDsk\D12Render.cpp">
+      <Filter>Code\MillionItemDumpDsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Code\MillionItemDumpDsk\TestD12.cpp">
+      <Filter>Code\MillionItemDumpDsk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
