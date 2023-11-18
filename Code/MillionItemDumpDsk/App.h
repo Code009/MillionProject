@@ -23,6 +23,9 @@ public:
 
 	virtual void cnLib_FUNC PaintSizeChanged(void)override;
 	virtual void cnLib_FUNC RenderBufferChanged(void)override;
+
+	void ScaleUp(void);
+	void ScaleDown(void);
 protected:
 	rPtr<iDXGIViewContent> fViewContent;
 
@@ -33,6 +36,7 @@ protected:
 	cD12ResourceRenderTarget fSharedRenderTarget;
 	cTestRenderCommand fRenderCommand;
 
+	void Render(void);
 };
 
 
@@ -53,7 +57,8 @@ public:
 
 
 	cTestD3DPainter Painter;
-	cnUI::cTextButton Button;
+	cnUI::cTextButton ScaleUpButton;
+	cnUI::cTextButton ScaleDownButton;
 
 protected:
 	virtual void cnLib_FUNC UILayout(void)override;

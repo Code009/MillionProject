@@ -28,6 +28,14 @@ public:
 
 	ID3D12CommandList* GetCommandList(void);
 
+    struct cTransform
+    {
+		float WorldMatrix[16];
+    };
+
+	float Scale;
+	
+
 protected:
 
 	COMPtr<ID3D12Device> fDevice;
@@ -37,12 +45,15 @@ protected:
 	COMPtr<ID3D12CommandAllocator> fCmdAllocator;
 	COMPtr<ID3D12GraphicsCommandList> fCmdList;
 
-    struct Vertex
+	COMPtr<ID3D12Resource> fTransformBuffer;
+
+	struct Vertex
     {
 		float position[3];
 		float color[4];
     };
-	COMPtr<ID3D12Resource> VertexBuffer;
+	COMPtr<ID3D12Resource> fVertexBuffer;
+
 	D3D12_VERTEX_BUFFER_VIEW VBView;
 
 

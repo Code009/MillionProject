@@ -142,18 +142,32 @@ cD12RenderTarget cD12ResourceRenderTarget::GetRenderTarget(void)
 cD12SwapChainRenderTargets::cD12SwapChainRenderTargets(ID3D12Device *Device)
 	: fDevice(Device)
 {
+	for(auto &p : fRenderTarget){
+		p=nullptr;
+	}
 }
 cD12SwapChainRenderTargets::~cD12SwapChainRenderTargets()
 {
+	if(fSwapChain!=nullptr){
+		for(auto &p : fRenderTarget){
+			p->Release();
+		}
+	}
 }
 
 
 void cD12SwapChainRenderTargets::SetupHWND(IDXGIFactory2 *DXGIFactory,ID3D12CommandQueue *CommandQueue,HWND WindowHandle)
 {
+	if(fSwapChain!=nullptr){
+		for(auto &p : fRenderTarget){
+			p->Release();
+			p=nullptr;
+		}
+	}
 	HRESULT hr;
 	// Describe and create the swap chain.
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {};
-	swapChainDesc.BufferCount = 2;
+	swapChainDesc.BufferCount = static_cast<UINT>(cnMemory::ArrayLength(fRenderTarget));
 	swapChainDesc.Width = 0;
 	swapChainDesc.Height = 0;
 	swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -170,7 +184,7 @@ void cD12SwapChainRenderTargets::SetupHWND(IDXGIFactory2 *DXGIFactory,ID3D12Comm
 
     // Describe and create a render target view (RTV) descriptor heap.
     D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc = {};
-    rtvHeapDesc.NumDescriptors = 2;
+    rtvHeapDesc.NumDescriptors = static_cast<UINT>(cnMemory::ArrayLength(fRenderTarget));
     rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
     rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
     fDevice->CreateDescriptorHeap(&rtvHeapDesc, __uuidof(ID3D12DescriptorHeap),COMRetPtr(fRenderTargetRTVDesc));
@@ -179,9 +193,9 @@ void cD12SwapChainRenderTargets::SetupHWND(IDXGIFactory2 *DXGIFactory,ID3D12Comm
 
     D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle=fRenderTargetRTVDesc->GetCPUDescriptorHandleForHeapStart();
     // Create a RTV for each frame.
-    for (UINT n = 0; n < 2; n++)
+    for (UINT n = 0; n < ArrayLength(fRenderTarget); n++)
     {
-        fSwapChain->GetBuffer(n, __uuidof(ID3D12Resource),COMRetPtr(fRenderTarget[n]));
+        fSwapChain->GetBuffer(n, __uuidof(ID3D12Resource),reinterpret_cast<void**>(fRenderTarget+n));
         fDevice->CreateRenderTargetView(fRenderTarget[n], nullptr, rtvHandle);
 		rtvHandle.ptr+=fRTVDescSize;
     }
@@ -192,10 +206,29 @@ void cD12SwapChainRenderTargets::SetupHWND(IDXGIFactory2 *DXGIFactory,ID3D12Comm
 
 void cD12SwapChainRenderTargets::UpdateViewport(int w,int h)
 {
+	if(fSwapChain==nullptr)
+		return;
+
 	fRenderWidth=w;
 	fRenderHeight=h;
-		
-	fSwapChain->ResizeBuffers(0,0,0,DXGI_FORMAT_UNKNOWN,0);
+
+	for(auto &p : fRenderTarget){
+		p->Release();
+		p=nullptr;
+	}
+
+	HRESULT hr;
+	hr=fSwapChain->ResizeBuffers(2,fRenderWidth,fRenderHeight,DXGI_FORMAT_UNKNOWN,0);
+
+    D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle=fRenderTargetRTVDesc->GetCPUDescriptorHandleForHeapStart();
+    // Create a RTV for each frame.
+    for (UINT n = 0; n < ArrayLength(fRenderTarget); n++)
+    {
+        fSwapChain->GetBuffer(n, __uuidof(ID3D12Resource),reinterpret_cast<void**>(fRenderTarget+n));
+        fDevice->CreateRenderTargetView(fRenderTarget[n], nullptr, rtvHandle);
+		rtvHandle.ptr+=fRTVDescSize;
+    }
+	fRenderTargetIndex=0;
 }
 
 cD12RenderTarget cD12SwapChainRenderTargets::GetRenderTarget(void)
@@ -212,7 +245,7 @@ cD12RenderTarget cD12SwapChainRenderTargets::GetRenderTarget(void)
 void cD12SwapChainRenderTargets::Present(void)
 {
 	fRenderTargetIndex++;
-	if(fRenderTargetIndex>=2)
+	if(fRenderTargetIndex>=cnMemory::ArrayLength(fRenderTarget))
 		fRenderTargetIndex=0;
 	HRESULT hr=fSwapChain->Present(1,0);
 }

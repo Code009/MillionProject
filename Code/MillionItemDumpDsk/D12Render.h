@@ -1,5 +1,6 @@
 #pragma once
 #include "AppHeader.h"
+#include <dxgi1_4.h>
 
 
 namespace MillionItemDump{
@@ -116,7 +117,7 @@ protected:
 	COMPtr<IDXGISwapChain3> fSwapChain3;
 	COMPtr<ID3D12DescriptorHeap> fRenderTargetRTVDesc;
 	uIntn fRTVDescSize;
-	COMPtr<ID3D12Resource> fRenderTarget[2];
+	ID3D12Resource *fRenderTarget[2];
 
 	int fRenderWidth;
 	int fRenderHeight;

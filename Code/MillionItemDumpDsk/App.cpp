@@ -62,6 +62,10 @@ void cTestD3DPainter::PaintSizeChanged(void)
 }
 void cTestD3DPainter::RenderBufferChanged(void)
 {
+	Render();
+}
+
+void cTestD3DPainter::Render(void){
 	HANDLE RenderBufferHandle;
 	fViewContent->GetRenderBufferSharedHandle(RenderBufferHandle);
 
@@ -90,16 +94,35 @@ void cTestD3DPainter::RenderBufferChanged(void)
 	fViewContent->UpdateRenderBuffer();
 }
 
+void cTestD3DPainter::ScaleUp(void)
+{
+	fRenderCommand.Scale+=0.125;
+
+	Render();
+}
+void cTestD3DPainter::ScaleDown(void)
+{
+	if(fRenderCommand.Scale>1.){
+		fRenderCommand.Scale-=0.125;
+		Render();
+	}
+}
+
 cMainForm::cMainForm()
 {
-	cnUI::ControlCreateView(Button,fView);
+	cnUI::ControlCreateView(ScaleUpButton,fView);
+	cnUI::ControlCreateView(ScaleDownButton,fView);
 
-	Button.Text=u"1234"_cArray;
+	ScaleUpButton.Text=u"+"_cArray;
+	ScaleDownButton.Text=u"-"_cArray;
 
-	Button.OnClick=[this]{
-		::OutputDebugStringW(L"1234\n");
+	ScaleUpButton.OnClick=[this]{
+		Painter.ScaleUp();
 	};
-
+	
+	ScaleDownButton.OnClick=[this]{
+		Painter.ScaleDown();
+	};
 	Painter.SetView(fView);
 }
 cMainForm::~cMainForm()
@@ -114,7 +137,8 @@ void cMainForm::UILayout(void)
 	{
 		auto LineLayout=Layout.LayoutTop(50);
 
-		cnUI::ControlSetRect(Button,fView,LineLayout.LayoutLeft(100));
+		cnUI::ControlSetRect(ScaleUpButton,fView,LineLayout.LayoutLeft(100,10,10));
+		cnUI::ControlSetRect(ScaleDownButton,fView,LineLayout.LayoutLeft(100,10,10));
 	}
 }
 

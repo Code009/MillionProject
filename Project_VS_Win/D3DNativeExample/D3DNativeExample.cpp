@@ -230,7 +230,16 @@ LRESULT D3DNativeExampleModule::WndProc(HWND hWnd, UINT message, WPARAM wParam, 
 		break;
 	case WM_LBUTTONDOWN:
 	{
+		gModule.RenderCommand.Scale+=0.125;
+		gModule.Render();
+	}
+		break;
+	case WM_RBUTTONDOWN:
+	{
 
+		if(gModule.RenderCommand.Scale>1.){
+			gModule.RenderCommand.Scale-=0.125;
+		}
 		gModule.Render();
 	}
 		break;

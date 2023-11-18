@@ -32,7 +32,10 @@ static const char hlsl_Src[]=R"*(
 // PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 //
 //*********************************************************
-
+cbuffer myObject : register(b0)
+{       
+    float4x4 matWorld;
+};
 struct PSInput
 {
     float4 position : SV_POSITION;
@@ -43,7 +46,8 @@ PSInput VSMain(float4 position : POSITION, float4 color : COLOR)
 {
     PSInput result;
 
-    result.position = position;
+    result.position = mul(matWorld , position);
+	//result.position = position;
     result.color = color;
 
     return result;
@@ -57,12 +61,20 @@ float4 PSMain(PSInput input) : SV_TARGET
 cTestRenderCommand::cTestRenderCommand(ID3D12Device *Device)
 	: fDevice(Device)
 {
+	Scale=1.f;
+
 	HRESULT hr;
+
+	D3D12_ROOT_PARAMETER rootParameters[1];
+	rootParameters[0].ParameterType=D3D12_ROOT_PARAMETER_TYPE_CBV;
+	rootParameters[0].Descriptor.ShaderRegister=0;
+	rootParameters[0].Descriptor.RegisterSpace=0;
+	rootParameters[0].ShaderVisibility=D3D12_SHADER_VISIBILITY_VERTEX;
 
 	D3D12_ROOT_SIGNATURE_DESC rs;
 	rs.Flags=D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-	rs.NumParameters=0;
-	rs.pParameters=nullptr;
+	rs.NumParameters=1;
+	rs.pParameters=rootParameters;
 	rs.NumStaticSamplers=0;
 	rs.pStaticSamplers=nullptr;
 
@@ -79,9 +91,18 @@ cTestRenderCommand::cTestRenderCommand(ID3D12Device *Device)
     COMPtr<ID3DBlob> VertexShader;
     COMPtr<ID3DBlob> PixelShader;
 
+	COMPtr<ID3DBlob> ErrorMessage;
     //ThrowIfFailed(D3DCompileFromFile(GetAssetFullPath(L"shaders.hlsl").c_str(), nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader, nullptr));
-	D3DCompile(hlsl_Src,sizeof(hlsl_Src)-1,"VS",nullptr,nullptr,"VSMain", "vs_5_0", compileFlags, 0, COMRetPtrT(VertexShader), nullptr);
-	D3DCompile(hlsl_Src,sizeof(hlsl_Src)-1,"PS",nullptr,nullptr,"PSMain", "ps_5_0", compileFlags, 0, COMRetPtrT(PixelShader), nullptr);
+	hr=D3DCompile(hlsl_Src,sizeof(hlsl_Src)-1,"VS",nullptr,nullptr,"VSMain", "vs_5_0", compileFlags, 0, COMRetPtrT(VertexShader), COMRetPtrT(ErrorMessage));
+	if(FAILED(hr)){
+		auto ErrorText=ErrorMessage->GetBufferPointer();
+		OutputDebugStringA((LPCSTR)ErrorText);
+	}
+	hr=D3DCompile(hlsl_Src,sizeof(hlsl_Src)-1,"PS",nullptr,nullptr,"PSMain", "ps_5_0", compileFlags, 0, COMRetPtrT(PixelShader), COMRetPtrT(ErrorMessage));
+	if(FAILED(hr)){
+		auto ErrorText=ErrorMessage->GetBufferPointer();
+		OutputDebugStringA((LPCSTR)ErrorText);
+	}
 
     // Define the vertex input layout.
     D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
@@ -166,21 +187,55 @@ cTestRenderCommand::cTestRenderCommand(ID3D12Device *Device)
         D3D12_RESOURCE_STATE_GENERIC_READ,
         nullptr,
 		__uuidof(ID3D12Resource),
-        COMRetPtr(VertexBuffer));
+        COMRetPtr(fVertexBuffer));
 
     // Copy the triangle data to the vertex buffer.
     UINT8* pVertexDataBegin;
     D3D12_RANGE readRange;        // We do not intend to read from this resource on the CPU.
 	readRange.Begin=0;
 	readRange.End=0;
-    VertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexDataBegin));
+    fVertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexDataBegin));
     memcpy(pVertexDataBegin, triangleVertices, sizeof(triangleVertices));
-    VertexBuffer->Unmap(0, nullptr);
+    fVertexBuffer->Unmap(0, nullptr);
 
     // Initialize the vertex buffer view.
-    VBView.BufferLocation = VertexBuffer->GetGPUVirtualAddress();
+    VBView.BufferLocation = fVertexBuffer->GetGPUVirtualAddress();
     VBView.StrideInBytes = sizeof(Vertex);
     VBView.SizeInBytes = vertexBufferSize;
+
+	
+	// 
+    // Define the geometry for a triangle.
+
+	D3D12_HEAP_PROPERTIES cb_hp={};
+	cb_hp.Type=D3D12_HEAP_TYPE_UPLOAD;
+	cb_hp.CPUPageProperty=D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
+	cb_hp.CreationNodeMask=0;
+	cb_hp.MemoryPoolPreference=D3D12_MEMORY_POOL_UNKNOWN;
+	cb_hp.VisibleNodeMask=0;
+
+	D3D12_RESOURCE_DESC cb_rd={};
+	cb_rd.Dimension=D3D12_RESOURCE_DIMENSION_BUFFER;
+	cb_rd.Alignment=D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	cb_rd.DepthOrArraySize=1;
+	cb_rd.Width=sizeof(cTransform);
+	cb_rd.Height=1;
+	cb_rd.MipLevels=1;
+	cb_rd.Format=DXGI_FORMAT_UNKNOWN;
+	cb_rd.SampleDesc.Count=1;
+	cb_rd.SampleDesc.Quality=0;
+	cb_rd.Layout=D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
+	cb_rd.Flags=D3D12_RESOURCE_FLAG_NONE;
+		
+
+    hr=fDevice->CreateCommittedResource(
+        &cb_hp,
+        D3D12_HEAP_FLAG_NONE,
+        &cb_rd,
+        D3D12_RESOURCE_STATE_GENERIC_READ,
+        nullptr,
+		__uuidof(ID3D12Resource),
+        COMRetPtr(fTransformBuffer));
 
 }
 cTestRenderCommand::~cTestRenderCommand()
@@ -189,13 +244,14 @@ cTestRenderCommand::~cTestRenderCommand()
 
 void cTestRenderCommand::Build(const cD12RenderTarget &Target)
 {
+	HRESULT hr;
 	if(fCmdAllocator==nullptr){
-		fDevice->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT,__uuidof(ID3D12CommandAllocator),COMRetPtr(fCmdAllocator));
-		fDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, fCmdAllocator, fPState, __uuidof(ID3D12GraphicsCommandList),COMRetPtr(fCmdList));
+		hr=fDevice->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT,__uuidof(ID3D12CommandAllocator),COMRetPtr(fCmdAllocator));
+		hr=fDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, fCmdAllocator, fPState, __uuidof(ID3D12GraphicsCommandList),COMRetPtr(fCmdList));
 	}
 	else{
-		fCmdAllocator->Reset();
-		fCmdList->Reset(fCmdAllocator, fPState);
+		hr=fCmdAllocator->Reset();
+		hr=fCmdList->Reset(fCmdAllocator, fPState);
 	}
 
 	ID3D12GraphicsCommandList *CmdList=fCmdList;
@@ -234,9 +290,33 @@ void cTestRenderCommand::Build(const cD12RenderTarget &Target)
 
 	// Record commands.
 	float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
+	static bool a=false;
 
-		
+	if(a){
+		clearColor[0]=0.3f;
+	}
+	a=!a;
+
+
 	CmdList->ClearRenderTargetView(Target.Descriptor, clearColor, 0, nullptr);
+
+
+	cTransform Transform;
+	cnMemory::ZeroFill(Transform);
+	Transform.WorldMatrix[0]=Scale;
+	Transform.WorldMatrix[5]=Scale;
+	Transform.WorldMatrix[10]=Scale;
+	Transform.WorldMatrix[15]=1.f;
+
+	D3D12_RANGE ZeroRange={0,0};
+	UINT8* pTransformDataBegin;
+    fTransformBuffer->Map(0, &ZeroRange, reinterpret_cast<void**>(&pTransformDataBegin));
+    memcpy(pTransformDataBegin, &Transform, sizeof(Transform));
+    fTransformBuffer->Unmap(0, nullptr);
+
+	auto TransformBufferLocation=fTransformBuffer->GetGPUVirtualAddress();
+	CmdList->SetGraphicsRootConstantBufferView(0,TransformBufferLocation);
+
 	CmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CmdList->IASetVertexBuffers(0, 1, &VBView);
 	CmdList->DrawInstanced(3, 1, 0, 0);
