@@ -48,9 +48,9 @@ protected:
 	virtual void FenceSignaled(void)=0;
 
 private:
-	class cHandleWaitProcedure : public iFunction<void (DWORD)>
+	class cHandleWaitProcedure : public iFunction<void (DWORD)noexcept>
 	{
-		virtual void cnLib_FUNC Execute(DWORD)override;
+		virtual void cnLib_FUNC Execute(DWORD)noexcept override;
 	}fHandleWaitProcedure;
 
 };
@@ -61,8 +61,8 @@ public:
 	cD12FenceWaitTask();
 	~cD12FenceWaitTask();
 
-	virtual bool cnLib_FUNC IsDone(void)override;
-	virtual bool cnLib_FUNC SetNotify(iProcedure *NotifyProcedure)override;
+	virtual bool cnLib_FUNC IsDone(void)noexcept(true)override;
+	virtual bool cnLib_FUNC Await(iProcedure *NotifyProcedure)noexcept(true)override;
 
 protected:
 	cAsyncTaskState fTaskState;

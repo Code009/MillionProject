@@ -17,6 +17,7 @@ using namespace MillionItemDump;
 
 
 extern "C" IMAGE_DOS_HEADER __ImageBase;
+
 static const HINSTANCE gInstance=reinterpret_cast<HINSTANCE>(&__ImageBase);
 
 struct cLibModule

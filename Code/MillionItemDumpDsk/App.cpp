@@ -8,7 +8,7 @@ using namespace MillionItemDump;
 
 
 
-cTestD3DPainter::cTestD3DPainter()
+cTestD3DPainter::cTestD3DPainter()noexcept
 	: fDevice(gD3DModule.D3DDevice)
 	, fSharedRenderTarget(gD3DModule.D3DDevice)
 	, fRenderCommand(gD3DModule.D3DDevice)
@@ -28,44 +28,44 @@ cTestD3DPainter::cTestD3DPainter()
     // complete before continuing.
     //WaitForPreviousFrame();
 }
-cTestD3DPainter::~cTestD3DPainter()
+cTestD3DPainter::~cTestD3DPainter()noexcept
 {
 	fViewContent=nullptr;
 }
 
-void cTestD3DPainter::SetView(iUIView *View)
+void cTestD3DPainter::SetView(iUIView *View)noexcept
 {
 	fViewContent->SetView(View);
 }
 
-void cTestD3DPainter::PaintStarted(void)
+void cTestD3DPainter::PaintStarted(void)noexcept
 {
 }
-void cTestD3DPainter::PaintShow(void)
+void cTestD3DPainter::PaintShow(void)noexcept
 {
 }
-void cTestD3DPainter::PaintResume(void)
+void cTestD3DPainter::PaintResume(void)noexcept
 {
 }
-void cTestD3DPainter::PaintPaused(void)
+void cTestD3DPainter::PaintPaused(void)noexcept
 {
 }
-void cTestD3DPainter::PaintHide(void)
+void cTestD3DPainter::PaintHide(void)noexcept
 {
 }
-void cTestD3DPainter::PaintStopped(void)
+void cTestD3DPainter::PaintStopped(void)noexcept
 {
 }
 
-void cTestD3DPainter::PaintSizeChanged(void)
+void cTestD3DPainter::PaintSizeChanged(void)noexcept
 {
 }
-void cTestD3DPainter::RenderBufferChanged(void)
+void cTestD3DPainter::RenderBufferChanged(void)noexcept
 {
 	Render();
 }
 
-void cTestD3DPainter::Render(void){
+void cTestD3DPainter::Render(void)noexcept{
 	HANDLE RenderBufferHandle;
 	fViewContent->GetRenderBufferSharedHandle(RenderBufferHandle);
 
@@ -94,13 +94,13 @@ void cTestD3DPainter::Render(void){
 	fViewContent->UpdateRenderBuffer();
 }
 
-void cTestD3DPainter::ScaleUp(void)
+void cTestD3DPainter::ScaleUp(void)noexcept
 {
 	fRenderCommand.Scale+=0.125;
 
 	Render();
 }
-void cTestD3DPainter::ScaleDown(void)
+void cTestD3DPainter::ScaleDown(void)noexcept
 {
 	if(fRenderCommand.Scale>1.){
 		fRenderCommand.Scale-=0.125;
@@ -108,7 +108,7 @@ void cTestD3DPainter::ScaleDown(void)
 	}
 }
 
-cMainForm::cMainForm()
+cMainForm::cMainForm()noexcept
 {
 	cnUI::ControlCreateView(ScaleUpButton,fView);
 	cnUI::ControlCreateView(ScaleDownButton,fView);
@@ -125,11 +125,11 @@ cMainForm::cMainForm()
 	};
 	Painter.SetView(fView);
 }
-cMainForm::~cMainForm()
+cMainForm::~cMainForm()noexcept
 {
 }
 
-void cMainForm::UILayout(void)
+void cMainForm::UILayout(void)noexcept
 {
 	cnUI::cLayout Layout;
 	Layout.ResetClient(fView);
@@ -143,19 +143,19 @@ void cMainForm::UILayout(void)
 }
 
 
-cApp::cApp()
+cApp::cApp()noexcept
 {
 }
 
-cApp::~cApp()
+cApp::~cApp()noexcept
 {
 }
 
-void cApp::UIStarted(void)
+void cApp::UIStarted(void)noexcept
 {
 	MainWindow->SetClient(MainForm);
 }
-void cApp::UIStopped(void)
+void cApp::UIStopped(void)noexcept
 {
 	MainWindow->SetClient(nullptr);
 }

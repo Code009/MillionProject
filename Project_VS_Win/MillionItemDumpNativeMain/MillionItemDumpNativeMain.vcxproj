@@ -23,32 +23,32 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{d000c0e2-80a2-41d0-aeb1-87d7bcbf0200}</ProjectGuid>
     <RootNamespace>MillionItemDumpNativeMain</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -98,8 +98,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code;..\..\Reference\cnLibrary\Code_CRT;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -117,7 +118,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code;..\..\Reference\cnLibrary\Code_CRT;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -135,8 +137,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code;..\..\Reference\cnLibrary\Code_CRT;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -154,7 +157,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code;..\..\Reference\cnLibrary\Code_CRT;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>

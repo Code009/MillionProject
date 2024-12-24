@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2043
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cnLibrary", "cnLibrary", "{CC9BDBB5-FFAC-4836-9947-D9094849735E}"
 EndProject
@@ -23,11 +23,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MillionItemDump", "MillionI
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D3DNativeExample", "D3DNativeExample\D3DNativeExample.vcxproj", "{FD28BF2F-2183-4A47-A7E0-355AB24D8C04}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IPCTest", "IPCTest", "{B7E2B7AE-F21D-4EE3-9C26-E03C5B423B82}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\Reference\cnLibrary\Project_VS_Win\cnWinDNet\cnWinDNet.vcxitems*{a1989a36-331c-4eb1-93f8-1735a1e38f25}*SharedItemsImports = 4
-		..\Reference\cnLibrary\Project_VS_Win\cnWinDNet\cnWinDNet.vcxitems*{fce5eb1d-2c7b-4eaa-92cd-809d28dcec6b}*SharedItemsImports = 9
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
@@ -112,5 +110,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {576F6A35-387A-4428-8A77-4614D495417D}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\Reference\cnLibrary\Project_VS_Win\cnWinDNet\cnWinDNet.vcxitems*{a1989a36-331c-4eb1-93f8-1735a1e38f25}*SharedItemsImports = 4
+		..\Reference\cnLibrary\Project_VS_Win\cnWinDNet\cnWinDNet.vcxitems*{fce5eb1d-2c7b-4eaa-92cd-809d28dcec6b}*SharedItemsImports = 9
 	EndGlobalSection
 EndGlobal

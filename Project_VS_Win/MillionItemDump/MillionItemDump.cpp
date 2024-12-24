@@ -15,6 +15,7 @@ static cnVar::cStaticVariable<cMillionItemDumpModue> _Module;
 cApp &MillionItemDump::gApp=_Module->App;
 cD3DModule &MillionItemDump::gD3DModule=_Module->D3DModule;
 
+//---------------------------------------------------------------------------
 
 static void MPDMain(void)
 {

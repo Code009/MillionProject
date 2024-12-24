@@ -69,7 +69,7 @@ void cD12FenceAsyncWaiter::Setup(ID3D12Fence *Fence,UINT64 WaitValue)
 }
 
 
-void cD12FenceAsyncWaiter::cHandleWaitProcedure::Execute(DWORD)
+void cD12FenceAsyncWaiter::cHandleWaitProcedure::Execute(DWORD)noexcept
 {
 	auto Host=cnMemory::GetObjectFromMemberPointer(this,&cD12FenceAsyncWaiter::fHandleWaitProcedure);
 	Host->FenceSignaled();
@@ -83,13 +83,13 @@ cD12FenceWaitTask::~cD12FenceWaitTask()
 {
 }
 
-bool cD12FenceWaitTask::IsDone(void)
+bool cD12FenceWaitTask::IsDone(void)noexcept
 {
 	return fTaskState.IsDone();
 }
-bool cD12FenceWaitTask::SetNotify(iProcedure *NotifyProcedure)
+bool cD12FenceWaitTask::Await(iProcedure *NotifyProcedure)noexcept
 {
-	return fTaskState.SetNotify(NotifyProcedure);
+	return fTaskState.Await(NotifyProcedure);
 }
 
 void cD12FenceWaitTask::FenceSignaled(void)
@@ -187,7 +187,7 @@ void cD12SwapChainRenderTargets::SetupHWND(IDXGIFactory2 *DXGIFactory,ID3D12Comm
     rtvHeapDesc.NumDescriptors = static_cast<UINT>(cnMemory::ArrayLength(fRenderTarget));
     rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
     rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-    fDevice->CreateDescriptorHeap(&rtvHeapDesc, __uuidof(ID3D12DescriptorHeap),COMRetPtr(fRenderTargetRTVDesc));
+    fDevice->CreateDescriptorHeap(&rtvHeapDesc, COMUUID(fRenderTargetRTVDesc),COMRetPtr(fRenderTargetRTVDesc));
 
     fRTVDescSize = fDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 

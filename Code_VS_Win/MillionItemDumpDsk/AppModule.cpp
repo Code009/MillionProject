@@ -5,6 +5,48 @@
 using namespace cnLibrary;
 using namespace MillionItemDump;
 
+cWinApp::cWinApp()noexcept
+{
+	MainHWND=cnWindows::CreateWindowHandle(nullptr,L"1234");
+	MainWindowClient=cnWindows::CreateWindowClient();
+
+	MainHWND->InsertMessageHandler(&MainWindowMessageHandler);
+	MainHWND->SetClient(MainWindowClient);
+	MainWindow=iCast<iUIWindow>(MainWindowClient);
+}
+cWinApp::~cWinApp()noexcept
+{
+}
+
+void cWinApp::cMainWindowMessageHandler::WindowDetached(void)noexcept(true)
+{
+	auto Host=cnMemory::GetObjectFromMemberPointer(this,&cWinApp::MainWindowMessageHandler);
+	if(Host->OnMainWindowClose!=nullptr)
+		Host->OnMainWindowClose();
+}
+
+
+bool cWinApp::cMainWindowMessageHandler::WindowMessage(LRESULT &Result,const cWindowMessageParam &MsgParam)noexcept(true)
+{
+	if(MsgParam.Code==WM_DESTROY){
+		auto Host=cnMemory::GetObjectFromMemberPointer(this,&cWinApp::MainWindowMessageHandler);
+		if(Host->OnMainWindowClose!=nullptr)
+			Host->OnMainWindowClose();
+	}
+	return false;
+}
+
+void cWinApp::UISessionStart(void)noexcept
+{
+	auto MainHwnd=MainHWND->GetWindowHandle();
+	::ShowWindow(MainHwnd,SW_SHOWDEFAULT);
+	UIStarted();
+}
+void cWinApp::UISessionExit(void)noexcept
+{
+	UIStopped();
+}
+
 cLibModule::cLibModule()
 {
 	cnWindows::Initialize();
@@ -14,16 +56,9 @@ cLibModule::~cLibModule()
 	::CoUninitialize();
 }
 
-
 cSysModule::cSysModule()
 {
 	UIApplication=cnWindows::CreateWindowsUIApplication();
-
-	MainWindow=cnWindows::CreateHWND(nullptr,L"1234");
-	MainWindowClient=cnWindows::CreateWindowClient();
-
-	MainWindowClient->SetWindow(MainWindow);
-
 }
 cSysModule::~cSysModule()
 {
@@ -32,16 +67,19 @@ cSysModule::~cSysModule()
 
 cMillionItemDumpModue::cMillionItemDumpModue()
 {
-	App.MainWindow=iCast<iUIWindow>(MainWindowClient);
+	UIApplication->InsertHandler(&App);
+
+	App.OnMainWindowClose=[this]{
+		UIApplication->CloseUISession();
+	};
 }
 cMillionItemDumpModue::~cMillionItemDumpModue()
 {
+	UIApplication->RemoveHandler(&App);
 }
 
 
 void cMillionItemDumpModue::UIMain(void)
 {
-	App.UIStarted();
-	UIApplication->UIMain(MainWindow,SW_SHOW);
-	App.UIStopped();
+	UIApplication->UIMain();
 }
