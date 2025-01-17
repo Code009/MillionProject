@@ -32,6 +32,8 @@ struct cLibModule
 {
 	cLibModule();
 	~cLibModule();
+
+	rPtr<iLibraryReference> LibraryReference;
 };
 
 

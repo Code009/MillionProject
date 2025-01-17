@@ -26,10 +26,16 @@ Execute
 
 */
 
-
+template<class TData>
+class iDataID : public iInterface
+{
+	virtual eiOrdering cnLib_FUNC Compare(iDataID *Dest)noexcept(true)=0;
+};
 
 struct cMillionDumpItem
 {
+	iPtr< iDataID<cMillionDumpItem> > ID;
+
 	cString<uChar16> Name;
 
 	rPtr<iMillionDumpItemEntity> Parent;
@@ -37,47 +43,69 @@ struct cMillionDumpItem
 	cSeqList< rPtr<iMillionDumpItemEntity> > Dependents;
 };
 
-class iMillionDumpItemEntity : public iInterface
-{
-public:
-	virtual const cMillionDumpItem* GetItem(void)=0;
-};
-
 struct cMillionDumpPlan
 {
-	rPtr<iMillionDumpItemEntity> Target;
+	iPtr< iDataID<cMillionDumpPlan> > ID;
+
+	iPtr< iDataID<cMillionDumpItem> > Target;
 	uInt64 Duration;
 	uInt64 Time;
 };
 
-class iMillionDumpPlanID : public iInterface
-{
-};
-class iMillionDumpPlanEntity : public iInterface
-{
-public:
-	virtual iInterface* GetID(void)=0;
-	virtual const cMillionDumpPlan* GetPlan(void)=0;
-};
 
 class iMillionDumpItemDataSet : public iReference
 {
 public:
-	virtual const cMillionDumpPlan* QueryPlan(iMillionDumpPlanID *ID,bool Refresh)=0;
-	virtual iMillionDumpPlanID* Select(int Condition)=0;
+	virtual aClsConstRef<cMillionDumpPlan> QueryPlan(iDataID<cMillionDumpPlan> *ID,bool Refresh)=0;
+	virtual iPtr< iDataID<cMillionDumpPlan> > Select(int Condition)=0;
 };
 
 class iMillionDumpItemDataTransaction : public iReference
 {
 public:
-	virtual iPtr<iMillionDumpPlanEntity> InsertPlan(const cMillionDumpPlan *Plan)=0;
+	virtual aClsConstRef<cMillionDumpPlan> InsertPlan(const cMillionDumpPlan *Plan)=0;
 };
 
 class iMillionItemDataView
 {
 public:
 	virtual rPtr<iMillionDumpItemDataSet> QueryDataSet(void)=0;
-	virtual rPtr<iMillionDumpItemDataTransaction> CreateTransaction(void)=0;
+	//virtual rPtr<iMillionDumpItemDataTransaction> CreateTransaction(void)=0;
+};
+
+class cSQLDatabaseSession
+{
+};
+
+class bcSQLDatabaseDataView
+{
+};
+
+class cMillionItemDataView : public bcSQLDatabaseDataView
+	, public iMillionItemDataView
+{
+public:
+
+	class cItemDataSet : public iMillionDumpItemDataSet
+	{
+	public:
+		cItemDataSet(cSQLDatabaseSession *Session)noexcept{
+		
+		}
+
+		virtual aClsConstRef<cMillionDumpPlan> QueryPlan(iDataID<cMillionDumpPlan> *ID,bool Refresh)override{
+			auto Data=aClsCreate<cMillionDumpPlan>();
+			return Data;
+		}
+		virtual iPtr< iDataID<cMillionDumpPlan> > Select(int Condition)override{
+			return nullptr;
+		}
+	protected:
+
+	};
+
+	virtual rPtr<iMillionDumpItemDataSet> QueryDataSet(void)override{
+	}
 };
 
 

@@ -49,11 +49,12 @@ void cWinApp::UISessionExit(void)noexcept
 
 cLibModule::cLibModule()
 {
-	cnWindows::Initialize();
+	LibraryReference=cnWindows::SystemStartup(nullptr);
 }
 cLibModule::~cLibModule()
 {
-	::CoUninitialize();
+	cnWindows::SystemWaitShutdown(cnVar::MoveCast(LibraryReference));
+	//::CoUninitialize();
 }
 
 cSysModule::cSysModule()

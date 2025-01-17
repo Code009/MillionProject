@@ -23,11 +23,13 @@ static const HINSTANCE gInstance=reinterpret_cast<HINSTANCE>(&__ImageBase);
 struct cLibModule
 {
 	cLibModule(){
-		cnWindows::Initialize();
+		LibReference=cnWindows::SystemStartup(nullptr);
 	}
 	~cLibModule(){
-		cnWindows::Finalize();
+		cnWindows::SystemWaitShutdown(cnVar::MoveCast(LibReference));
 	}
+
+	rPtr<iLibraryReference> LibReference;
 };
 
 struct D3DNativeExampleModule : cLibModule
