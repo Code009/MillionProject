@@ -47,13 +47,21 @@ void cWinApp::UISessionExit(void)noexcept
 	UIStopped();
 }
 
+
+
 cLibModule::cLibModule()
 {
-	LibraryReference=cnWindows::SystemStartup(nullptr);
+	LibraryModule=cnSystem::SystemQueryModule(nullptr);
+#ifdef _DEBUG
+	cnRTL::gRTLDebuggerContext->DebugStartThread();
+#endif // _DEBUG
 }
 cLibModule::~cLibModule()
 {
-	cnWindows::SystemWaitShutdown(cnVar::MoveCast(LibraryReference));
+#ifdef _DEBUG
+	cnRTL::gRTLDebuggerContext->DebugShutdownThread();
+#endif // _DEBUG
+	LibraryModule->CloseAndWaitUnload(nullptr);
 	//::CoUninitialize();
 }
 

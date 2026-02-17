@@ -117,13 +117,7 @@ public:
 
 	void SetView(iUIView *View)noexcept(true);
 
-	virtual void cnLib_FUNC PaintStarted(void)noexcept(true)override;
-	virtual void cnLib_FUNC PaintShow(void)noexcept(true)override;
-	virtual void cnLib_FUNC PaintResume(void)noexcept(true)override;
-	virtual void cnLib_FUNC PaintPaused(void)noexcept(true)override;
-	virtual void cnLib_FUNC PaintHide(void)noexcept(true)override;
-	virtual void cnLib_FUNC PaintStopped(void)noexcept(true)override;
-
+	virtual void cnLib_FUNC PaintStateChanged(void)noexcept(true)override;
 	virtual void cnLib_FUNC PaintSizeChanged(void)noexcept(true)override;
 	virtual void cnLib_FUNC RenderBufferChanged(void)noexcept(true)override;
 

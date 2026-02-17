@@ -23,13 +23,19 @@ static const HINSTANCE gInstance=reinterpret_cast<HINSTANCE>(&__ImageBase);
 struct cLibModule
 {
 	cLibModule(){
-		LibReference=cnWindows::SystemStartup(nullptr);
+		LibModule=cnSystem::SystemQueryModule(nullptr);
+#ifdef _DEBUG
+		cnRTL::gRTLDebuggerContext->DebugStartThread();
+#endif // _DEBUG
 	}
 	~cLibModule(){
-		cnWindows::SystemWaitShutdown(cnVar::MoveCast(LibReference));
+#ifdef _DEBUG
+		cnRTL::gRTLDebuggerContext->DebugShutdownThread();
+#endif // _DEBUG
+		LibModule->CloseAndWaitUnload(nullptr);
 	}
 
-	rPtr<iLibraryReference> LibReference;
+	iModuleHandle *LibModule;
 };
 
 struct D3DNativeExampleModule : cLibModule
@@ -143,7 +149,6 @@ struct D3DNativeExampleModule : cLibModule
 };
 static D3DNativeExampleModule gModule;
 
-
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -153,7 +158,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
-
+	
+	//rPtr<D3DNativeExampleModule> ppb;
+	
 	gModule.UIMain(nCmdShow);
 
 	return 0;

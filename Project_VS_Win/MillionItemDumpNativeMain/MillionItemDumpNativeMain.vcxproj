@@ -98,7 +98,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Windows_Code_RTLCore;..\..\Reference\cnLibrary\Windows_Code;..\..\Reference\cnLibrary\CLibrary_Code;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -118,7 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Windows_Code_RTLCore;..\..\Reference\cnLibrary\Windows_Code;..\..\Reference\cnLibrary\CLibrary_Code;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -137,7 +137,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Windows_Code_RTLCore;..\..\Reference\cnLibrary\Windows_Code;..\..\Reference\cnLibrary\CLibrary_Code;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -157,7 +157,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Windows_Code_RTLCore;..\..\Reference\cnLibrary\Windows_Code;..\..\Reference\cnLibrary\CLibrary_Code;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>

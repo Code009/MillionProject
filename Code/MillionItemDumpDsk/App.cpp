@@ -38,22 +38,7 @@ void cTestD3DPainter::SetView(iUIView *View)noexcept
 	fViewContent->SetView(View);
 }
 
-void cTestD3DPainter::PaintStarted(void)noexcept
-{
-}
-void cTestD3DPainter::PaintShow(void)noexcept
-{
-}
-void cTestD3DPainter::PaintResume(void)noexcept
-{
-}
-void cTestD3DPainter::PaintPaused(void)noexcept
-{
-}
-void cTestD3DPainter::PaintHide(void)noexcept
-{
-}
-void cTestD3DPainter::PaintStopped(void)noexcept
+void cTestD3DPainter::PaintStateChanged(void)noexcept
 {
 }
 

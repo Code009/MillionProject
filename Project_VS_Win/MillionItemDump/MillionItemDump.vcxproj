@@ -62,7 +62,7 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
-    <Import Project="..\..\Reference\cnLibrary\Project_VS_Win\cnWinDNet\cnWinDNet.vcxitems" Label="Shared" />
+    <Import Project="..\..\Reference\cnLibrary\Windows_Project_VS\cnWinDNet\cnWinDNet.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -106,7 +106,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Windows_Code_RTLCore;..\..\Reference\cnLibrary\Windows_Code;..\..\Reference\cnLibrary\CLibrary_Code;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -125,7 +125,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Windows_Code_RTLCore;..\..\Reference\cnLibrary\Windows_Code;..\..\Reference\cnLibrary\CLibrary_Code;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -144,7 +144,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Windows_Code_RTLCore;..\..\Reference\cnLibrary\Windows_Code;..\..\Reference\cnLibrary\CLibrary_Code;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,7 +163,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Code_VS_Win_RTLCore_CRT;..\..\Reference\cnLibrary\Code_VS_Win;..\..\Reference\cnLibrary\Code_CLib;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Reference\cnLibrary\Windows_Code_RTLCore;..\..\Reference\cnLibrary\Windows_Code;..\..\Reference\cnLibrary\CLibrary_Code;..\..\Reference\cnLibrary\Code;..\..\Code_VS_Win;..\..\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -198,13 +198,13 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Reference\cnLibrary\Project_VS_Win\cnRTL\cnRTL.vcxproj">
+    <ProjectReference Include="..\..\Reference\cnLibrary\Windows_Project_VS\cnRTL\cnRTL.vcxproj">
       <Project>{86d4b8d5-d7ab-4bfc-aeaa-28953efec224}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Reference\cnLibrary\Project_VS_Win\cnWinNT6DNet4\cnWinNT6DNet4.vcxproj">
+    <ProjectReference Include="..\..\Reference\cnLibrary\Windows_Project_VS\cnWinNT6DNet4\cnWinNT6DNet4.vcxproj">
       <Project>{c936a86f-3ae2-479d-82da-c9daaa03b98a}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Reference\cnLibrary\Project_VS_Win\cnWin\cnWin.vcxproj">
+    <ProjectReference Include="..\..\Reference\cnLibrary\Windows_Project_VS\cnWin\cnWin.vcxproj">
       <Project>{657712b5-4813-41a5-acfd-6ec210b60032}</Project>
     </ProjectReference>
     <ProjectReference Include="..\MillionItemDumpNativeMain\MillionItemDumpNativeMain.vcxproj">
